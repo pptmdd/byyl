@@ -187,6 +187,7 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
             @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+
     | For(e1, e2, e3, body) ->         
       let labbegin = newLabel()
       let labtest  = newLabel()
@@ -293,6 +294,17 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
              | _ -> raise (Failure "unknown primitive 2"))
+    | Prim3 (e, e1, e2)    -> 
+        let labelse = newLabel ()
+        let labend = newLabel ()
+        cExpr e varEnv funEnv 
+        @ [ IFZERO labelse ] 
+          @ cExpr e1 varEnv funEnv 
+            @ [ GOTO labend ]
+              @ [ Label labelse ]
+                @ cExpr e2 varEnv funEnv 
+                  @ [ Label labend ] 
+
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()

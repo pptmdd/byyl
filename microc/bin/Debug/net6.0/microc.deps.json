@@ -1,18 +1,18 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v5.0",
+    "name": ".NETCoreApp,Version=v6.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v5.0": {
-      "interpc/1.0.0": {
+    ".NETCoreApp,Version=v6.0": {
+      "microc/1.0.0": {
         "dependencies": {
           "FSharp.Core": "6.0.2",
           "FsLexYacc": "10.2.0"
         },
         "runtime": {
-          "interpc.dll": {}
+          "microc.dll": {}
         }
       },
       "FSharp.Core/6.0.2": {
@@ -84,7 +84,7 @@
     }
   },
   "libraries": {
-    "interpc/1.0.0": {
+    "microc/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
