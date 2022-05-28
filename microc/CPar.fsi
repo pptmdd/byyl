@@ -29,6 +29,8 @@ type token =
   | AND
   | OR
   | XOR
+  | QUEST
+  | COLON
   | CHAR
   | ELSE
   | IF
@@ -72,6 +74,8 @@ type tokenId =
     | TOKEN_AND
     | TOKEN_OR
     | TOKEN_XOR
+    | TOKEN_QUEST
+    | TOKEN_COLON
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF
