@@ -41,6 +41,9 @@ type token =
   | RETURN
   | VOID
   | WHILE
+  | FOR
+  | UNTIL
+  | DO
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -86,6 +89,9 @@ type tokenId =
     | TOKEN_RETURN
     | TOKEN_VOID
     | TOKEN_WHILE
+    | TOKEN_FOR
+    | TOKEN_UNTIL
+    | TOKEN_DO
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT
