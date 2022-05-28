@@ -130,7 +130,24 @@ let rec emitx86 instr =
                     cqto\n\t\
                     idiv r10\n\t\
                     push rax\n\t"
-
+    | AND ->
+        ";AND\n\t\
+                    pop rax\n\t\
+                    pop r10\n\t\
+                    and rax, r10\n\t\
+                    push rax\n\t"   
+    | OR ->
+        ";OR\n\t\
+                    pop rax\n\t\
+                    pop r10\n\t\
+                    or rax, r10\n\t\
+                    push rax\n\t"
+    | XOR ->
+        ";XOR\n\t\
+                    pop rax\n\t\
+                    pop r10\n\t\
+                    xor rax, r10\n\t\
+                    push rax\n\t"                        
     | MOD ->
         ";MOD\n\t\
                     xor rdx,rdx\n\t\
