@@ -17,7 +17,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %token <int> CSTINT CSTBOOL  // <int> 是词元的语义值类型
 %token <string> CSTSTRING NAME
 
-%token CHAR ELSE IF INT NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR
+%token CHAR ELSE IF INT NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR IN RANGE
 %token PLUS MINUS TIMES DIV MOD AND OR XOR QUEST COLON
 %token EQ NE GT LT GE LE
 %token NOT SEQOR SEQAND
@@ -140,6 +140,7 @@ StmtM:  /* No unbalanced if-else */
   | IF LPAR Expr RPAR StmtM ELSE StmtM  { If($3, $5, $7)       }
   | WHILE LPAR Expr RPAR StmtM          { While($3, $5)        }
   | FOR LPAR Expr SEMI Expr SEMI Expr RPAR StmtM  { For($3, $5, $7, $9)  }
+  | FOR Access IN RANGE LPAR Expr COMMA Expr COMMA Expr RPAR StmtM {ForIn($2, $6, $8, $10, $12)}
   | DO StmtM WHILE LPAR Expr RPAR SEMI  { DoWhile($2, $5)      }
   | DO StmtM UNTIL LPAR Expr RPAR SEMI  { DoUntil($2, $5)      }
 
@@ -153,6 +154,7 @@ StmtU:
   | FOR LPAR Expr SEMI Expr SEMI Expr RPAR StmtM  { For($3, $5, $7, $9)  }
   | DO StmtU WHILE LPAR Expr RPAR SEMI  { DoWhile($2, $5)      }
   | DO StmtU UNTIL LPAR Expr RPAR SEMI  { DoUntil($2, $5)      }
+  | FOR Access IN RANGE LPAR Expr COMMA Expr COMMA Expr RPAR StmtU {ForIn($2, $6, $8, $10, $12)}
 ;
 
 Expr: 
