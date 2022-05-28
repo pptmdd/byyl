@@ -26,6 +26,9 @@ type token =
   | TIMES
   | DIV
   | MOD
+  | AND
+  | OR
+  | XOR
   | CHAR
   | ELSE
   | IF
@@ -66,6 +69,9 @@ type tokenId =
     | TOKEN_TIMES
     | TOKEN_DIV
     | TOKEN_MOD
+    | TOKEN_AND
+    | TOKEN_OR
+    | TOKEN_XOR
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

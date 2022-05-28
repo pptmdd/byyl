@@ -52,6 +52,10 @@
 #define LDARGS 24
 #define STOP 25
 
+#define AND 26
+#define OR 27
+#define XOR 28
+
 #define STACKSIZE 1000
 
 // Print the stack machine instruction at p[pc]
@@ -74,6 +78,15 @@ void printInstruction(int p[], int pc)
     break;
   case DIV:
     printf("DIV");
+    break;
+  case AND:
+    printf("AND");
+    break;
+  case OR:
+    printf("OR");
+    break;
+  case XOR:
+    printf("XOR");
     break;
   case MOD:
     printf("MOD");
@@ -215,6 +228,18 @@ int execcode(int p[], int s[], int iargs[], int iargc, int /* boolean */ trace)
       break;
     case DIV:
       s[sp - 1] = s[sp - 1] / s[sp];
+      sp--;
+      break;
+    case AND:
+      s[sp - 1] = s[sp - 1] & s[sp];
+      sp--;
+      break;
+    case OR:
+      s[sp - 1] = s[sp - 1] | s[sp];
+      sp--;
+      break;
+    case XOR:
+      s[sp - 1] = s[sp - 1] ^ s[sp];
       sp--;
       break;
     case MOD:
