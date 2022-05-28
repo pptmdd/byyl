@@ -16,11 +16,28 @@ void main(int n) {
   // 数组越界，程序的行为会异常
   // 此时解释器，栈式虚拟机，x86程序表现各不相同，可以思考原因
 
-  print(2^3);
 
-  while (n > 0) {
-    print n;
-    n = n - 1;
-  }
-  println;
+  // for(int u=2 ; u<=10 ; u=u+1 ) {
+  //   print u;
+  // }
+
+
+  // g=5;
+  // do{
+  //   g=g+1;
+  //   print g;
+  // }while(g<=3);
+
+  // g=4;
+  // do{
+  //   g=g-1;
+  //   print g;
+  // }until(g==3);
+  
+
+  // while (n > 0) {
+  //   print n;
+  //   n = n - 1;
+  // }
+  // println;
 }

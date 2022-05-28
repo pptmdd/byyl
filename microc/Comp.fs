@@ -187,6 +187,43 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
             @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+    | For(e1, e2, e3, body) ->         
+      let labbegin = newLabel()
+      let labtest  = newLabel()
+
+      cExpr e1 varEnv funEnv @ [INCSP -1]
+            @ [GOTO labtest; Label labbegin] 
+                @ cStmt body varEnv funEnv
+                    @ cExpr e3 varEnv funEnv @ [INCSP -1]
+                        @ [Label labtest] 
+                            @ cExpr e2 varEnv funEnv 
+                                @ [IFNZRO labbegin]
+    | DoWhile (body, e) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+
+        cStmt body varEnv funEnv
+            @[ GOTO labtest]
+                @[Label labbegin ] 
+                @ cStmt body varEnv funEnv
+                @ [ Label labtest ] 
+                @ cExpr e varEnv funEnv 
+                @ [ IFNZRO labbegin ] 
+                
+    | DoUntil (body, e) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+
+        cStmt body varEnv funEnv
+            @[ GOTO labtest] 
+                @[Label labbegin ] 
+                @ cStmt body varEnv funEnv
+                @ [ Label labtest ] 
+                @ cExpr e varEnv funEnv  
+                @ [ IFZERO labbegin ]
+
+
+
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 
