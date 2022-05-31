@@ -12,7 +12,7 @@ module Absyn
 // 这里没有函数类型，注意与上次课的 MicroML 对比
 type typ =
   | TypI                             (* Type int                    *)
-  | TypC                             (* Type char                   *)
+  | TypC                             (* Type char *)
   | TypA of typ * int option         (* Array type                  *)
   | TypP of typ                      (* Pointer type                *)
                                                                    
@@ -48,6 +48,8 @@ and stmt =
 and stmtordec =                                                    
   | Dec of typ * string              (* Local variable declaration  *)
   | Stmt of stmt                     (* A statement                 *)
+  | DecAndAssign of typ * string * expr
+
 
 // 顶级声明 可以是函数声明或变量声明
 and topdec = 
