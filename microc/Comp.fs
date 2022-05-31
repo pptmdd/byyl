@@ -247,6 +247,13 @@ and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list
     match stmtOrDec with
     | Stmt stmt -> (varEnv, cStmt stmt varEnv funEnv)
     | Dec (typ, x) -> allocateWithMsg Locvar (typ, x) varEnv
+    | DecAndAssign (typ, x, e) -> //定义时赋值
+        let (varEnv, code) = allocate Locvar (typ, x) varEnv
+
+        (varEnv,
+         code
+         @ (cExpr (Assign((AccVar x), e)) varEnv funEnv)
+           @ [ INCSP -1 ])
 
 (* Compiling micro-C expressions:
 
