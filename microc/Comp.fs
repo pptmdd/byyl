@@ -317,6 +317,8 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | "&" -> [ AND ]
              | "|" -> [ OR ]
              | "^" -> [ XOR ]
+             | ">>" -> [ RSHIFT ]
+             | "<<" -> [ LSHIFT ]
              | "%" -> [ MOD ]
              | "==" -> [ EQ ]
              | "!=" -> [ EQ; NOT ]

@@ -47,7 +47,7 @@ class Machine
     // These numeric instruction codes must agree with Machine.fs:
 
     const int
-      CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28, //基本运算 
+      CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28, RSHIFT = 29, LSHIFT = 30,  //基本运算 
       EQ = 6, LT = 7, NOT = 8,  //关系运算
       DUP = 9, SWAP = 10,   //栈操作
       LDI = 11, STI = 12,   // 栈变量
@@ -109,6 +109,10 @@ class Machine
                     s[sp - 1] = s[sp - 1] | s[sp]; sp--; break;
                 case XOR:
                     s[sp - 1] = s[sp - 1] ^ s[sp]; sp--; break;
+                case RSHIFT:
+                    s[sp - 1] = s[sp - 1] >> s[sp]; sp--; break;
+                case LSHIFT:
+                    s[sp - 1] = s[sp - 1] << s[sp]; sp--; break;
                 case MOD:
                     s[sp - 1] = s[sp - 1] % s[sp]; sp--; break;
                 case EQ:
@@ -198,6 +202,8 @@ class Machine
             case AND: return "AND";
             case OR: return "OR";
             case XOR: return "XOR";
+            case RSHIFT: return "RSHIFT";
+            case LSHIFT: return "LSHIFT";
             case MOD: return "MOD";
             case EQ: return "EQ";
             case LT: return "LT";

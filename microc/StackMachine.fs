@@ -25,6 +25,8 @@ type instr =
     | MUL (* multiplication                  *)
     | DIV (* division                        *)
     | AND (* AND                     *)
+    | RSHIFT (* RSHIFT                        *)
+    | LSHIFT (* LSHIFT                     *)
     | OR (* OR                  *)
     | XOR (* XOR                        *)
     | MOD (* modulus                         *)
@@ -188,6 +190,12 @@ let CODEOR = 27
 [<Literal>]
 let CODEXOR = 28
 
+[<Literal>]
+let CODERSHIFT = 29
+
+[<Literal>]
+let CODEXLSHIFT = 30
+
 (* Bytecode emission, first pass: build environment that maps
    each label to an integer address in the bytecode.
  *)
@@ -228,6 +236,8 @@ let makelabenv (addr, labenv) instr =
     | AND -> (addr + 1, labenv)
     | OR -> (addr + 1, labenv)
     | XOR -> (addr + 1, labenv)
+    | RSHIFT -> (addr + 1, labenv)
+    | LSHIFT -> (addr + 1, labenv)
 
 (* Bytecode emission, second pass: output bytecode as integers *)
 
@@ -269,6 +279,8 @@ let rec emitints getlab instr ints =
     | AND -> CODEAND :: ints
     | OR -> CODEOR :: ints
     | XOR -> CODEXOR :: ints
+    | RSHIFT -> CODERSHIFT :: ints
+    | LSHIFT -> CODEXLSHIFT :: ints
 
 (* Convert instruction list to int list in two passes:
    Pass 1: build label environment
@@ -306,6 +318,8 @@ let rec decomp ints : instr list =
     | CODEAND :: ints_rest -> AND :: decomp ints_rest
     | CODEOR :: ints_rest -> OR :: decomp ints_rest
     | CODEXOR :: ints_rest -> XOR :: decomp ints_rest
+    | CODERSHIFT :: ints_rest -> RSHIFT :: decomp ints_rest
+    | CODEXLSHIFT :: ints_rest -> LSHIFT :: decomp ints_rest
     | CODEMOD :: ints_rest -> MOD :: decomp ints_rest
     | CODEEQ :: ints_rest -> EQ :: decomp ints_rest
     | CODELT :: ints_rest -> LT :: decomp ints_rest

@@ -147,7 +147,22 @@ let rec emitx86 instr =
                     pop rax\n\t\
                     pop r10\n\t\
                     xor rax, r10\n\t\
-                    push rax\n\t"                        
+                    push rax\n\t"  
+    
+    | RSHIFT ->
+        ";RSHIFT\n\t\
+                    pop rax\n\t\
+                    pop r10\n\t\
+                    shr rax, r10\n\t\
+                    push rax\n\t"
+
+    | LSHIFT ->
+        ";LSHIFT\n\t\
+                    pop rax\n\t\
+                    pop r10\n\t\
+                    shl rax, r10\n\t\
+                    push rax\n\t" 
+
     | MOD ->
         ";MOD\n\t\
                     xor rdx,rdx\n\t\
@@ -281,3 +296,4 @@ let rec emitx86 instr =
                     add rsp, 8          ; restore rsp\n\t\
                     pop rbp\n\t\
                     ret\n\t"
+

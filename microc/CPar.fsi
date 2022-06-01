@@ -38,6 +38,8 @@ type token =
   | XOR
   | QUEST
   | COLON
+  | RSHIFT
+  | LSHIFT
   | CHAR
   | ELSE
   | IF
@@ -98,6 +100,8 @@ type tokenId =
     | TOKEN_XOR
     | TOKEN_QUEST
     | TOKEN_COLON
+    | TOKEN_RSHIFT
+    | TOKEN_LSHIFT
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF

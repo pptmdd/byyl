@@ -98,6 +98,8 @@ let rec addCST i C =
     | (1, AND        :: C1) -> C1
     | (1, OR         :: C1) -> C1
     | (1, XOR        :: C1) -> C1
+    | (0, RSHIFT     :: C1) -> C1
+    | (0, LSHIFT     :: C1) -> C1
     | (0, EQ         :: C1) -> addNOT C1
     | (_, INCSP m    :: C1) -> if m < 0 then addINCSP (m+1) C1
                                else CSTI i :: C
@@ -269,6 +271,8 @@ and cExpr (e : expr) (varEnv : VarEnv) (funEnv : FunEnv) (C : instr list) : inst
             | "^"   -> XOR  :: C
             | "%"   -> MOD  :: C
             | "=="  -> EQ   :: C
+            | ">>"  -> RSHIFT  :: C
+            | "<<"  -> LSHIFT  :: C
             | "!="  -> EQ   :: addNOT C
             | "<"   -> LT   :: C
             | ">="  -> LT   :: addNOT C
