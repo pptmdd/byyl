@@ -275,6 +275,18 @@ and cExpr (e : expr) (varEnv : VarEnv) (funEnv : FunEnv) (C : instr list) : inst
             | ">"   -> SWAP :: LT :: C
             | "<="  -> SWAP :: LT :: addNOT C
             | _     -> failwith "unknown primitive 2"))
+    
+    | AssignPrim (ope, e1, e2) ->
+      cAccess e1 varEnv funEnv
+        (cExpr e2 varEnv funEnv
+          (match ope with
+            | "+=" -> ADD  :: C
+            | "-=" -> SUB  :: C
+            | "*=" -> MUL  :: C
+            | "/=" -> DIV  :: C
+            | "%=" -> MOD  :: C
+            | _    -> failwith "unknown AssignPrim"))
+
     | Andalso(e1, e2) ->
       match C with
       | IFZERO lab :: _ ->

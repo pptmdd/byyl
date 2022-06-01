@@ -246,7 +246,8 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         cExpr e varEnv funEnv 
           @ searchcases cases
             @[INCSP -1]
-
+    
+    
 
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
@@ -334,6 +335,18 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
               @ [ Label labelse ]
                 @ cExpr e2 varEnv funEnv 
                   @ [ Label labend ] 
+    
+    | AssignPrim (ope, e1, e2) ->
+        cAccess e1 varEnv funEnv
+          @[DUP;LDI]
+             @ cExpr e2 varEnv funEnv
+                @ (match ope with
+                    | "+=" -> [ ADD;STI ]
+                    | "-=" -> [ SUB;STI ]
+                    | "*=" -> [ MUL;STI ]
+                    | "/=" -> [ DIV;STI ]
+                    | "%=" -> [ MOD;STI ]
+                    | _ -> raise (Failure "unknown AssignPrim"))
 
     | Andalso (e1, e2) ->
         let labend = newLabel ()
