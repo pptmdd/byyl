@@ -289,6 +289,11 @@ and cExpr (e : expr) (varEnv : VarEnv) (funEnv : FunEnv) (C : instr list) : inst
             | "*=" -> MUL  :: C
             | "/=" -> DIV  :: C
             | "%=" -> MOD  :: C
+            | "&&&=" -> AND  :: C
+            | "|||=" -> OR   :: C
+            | "^^^=" -> XOR  :: C
+            | ">>>=" -> RSHIFT  :: C 
+            | "<<<=" -> LSHIFT  :: C
             | _    -> failwith "unknown AssignPrim"))
 
     | Andalso(e1, e2) ->

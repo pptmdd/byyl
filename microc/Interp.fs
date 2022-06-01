@@ -459,6 +459,21 @@ and eval e locEnv gloEnv store : int * store =
             | "%=" -> 
                 match (tmp) with
                 | i -> tmp % res
+            | "&&&=" -> 
+                match (tmp) with
+                | i -> tmp &&& res
+            | "|||=" -> 
+                match (tmp) with
+                | i -> tmp ||| res
+            | "^^^=" -> 
+                match (tmp) with
+                | i ->tmp ^^^ res
+            | ">>>=" -> 
+                match (tmp) with
+                | i -> tmp >>> res
+            | "<<<=" -> 
+                match (tmp) with
+                | i -> tmp <<< res
             | _  -> failwith("unkown primitive " + ope)
 
         (num, setSto store2 loc num)
