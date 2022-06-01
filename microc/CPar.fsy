@@ -19,7 +19,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 
 %token CHAR ELSE IF INT NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR IN RANGE SWITCH CASE DEFAULT
 %token PLUS MINUS TIMES DIV MOD AND OR XOR QUEST COLON
-%token EQ NE GT LT GE LE
+%token EQ NE GT LT GE LE MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN
 %token NOT SEQOR SEQAND
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
 %token EOF 
@@ -28,7 +28,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %nonassoc PRINT
 %left SEQOR
 %left SEQAND
-%left EQ NE AND OR XOR
+%left EQ NE AND OR XOR MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN
 %nonassoc GT LT GE LE
 %left PLUS MINUS
 %left TIMES DIV MOD 
@@ -201,6 +201,12 @@ ExprNotAccess:
   | Expr SEQAND Expr                    { Andalso($1, $3)     }
   | Expr SEQOR  Expr                    { Orelse($1, $3)      }
   | Expr QUEST Expr COLON Expr          { Prim3($1,$3,$5)     }
+  | Access PLUSASSIGN Expr              { AssignPrim("+=", $1, $3) }
+  | Access MINUSASSIGN Expr             { AssignPrim("-=", $1, $3) }
+  | Access TIMESASSIGN Expr             { AssignPrim("*=", $1, $3) }
+  | Access DIVASSIGN Expr               { AssignPrim("/=", $1, $3) }
+  | Access MODASSIGN Expr               { AssignPrim("%=", $1, $3) }
+
 ;
 
 AtExprNotAccess:

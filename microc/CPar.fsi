@@ -21,6 +21,11 @@ type token =
   | LT
   | GE
   | LE
+  | MODASSIGN
+  | DIVASSIGN
+  | TIMESASSIGN
+  | MINUSASSIGN
+  | PLUSASSIGN
   | PLUS
   | MINUS
   | TIMES
@@ -74,6 +79,11 @@ type tokenId =
     | TOKEN_LT
     | TOKEN_GE
     | TOKEN_LE
+    | TOKEN_MODASSIGN
+    | TOKEN_DIVASSIGN
+    | TOKEN_TIMESASSIGN
+    | TOKEN_MINUSASSIGN
+    | TOKEN_PLUSASSIGN
     | TOKEN_PLUS
     | TOKEN_MINUS
     | TOKEN_TIMES

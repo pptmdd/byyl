@@ -435,6 +435,32 @@ and eval e locEnv gloEnv store : int * store =
         let (v, store1) = eval e1 locEnv gloEnv store
         if v <> 0 then eval e2 locEnv gloEnv store1
         else eval e3 locEnv gloEnv store1
+
+    | AssignPrim(ope, acc, e) ->
+        let (loc,store1) = access acc locEnv gloEnv store
+        let tmp = getSto store1 loc
+        let (res,store2) = eval e locEnv gloEnv store1
+        let num = 
+            match ope with
+            | "+=" -> 
+                match (tmp) with
+                | i -> tmp + res
+            | "-=" -> 
+                match (tmp) with
+                | i -> tmp - res
+            | "*=" -> 
+                match (tmp) with
+                | i ->tmp * res
+            | "/=" -> 
+                match (tmp) with
+                | i -> tmp / res
+            | "%=" -> 
+                match (tmp) with
+                | i -> tmp % res
+            | _  -> failwith("unkown primitive " + ope)
+
+        (num, setSto store2 loc num)
+
     | Andalso (e1, e2) ->
         let (i1, store1) as res = eval e1 locEnv gloEnv store
 
