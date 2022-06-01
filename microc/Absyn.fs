@@ -28,6 +28,8 @@ and expr =                           // 表达式，右值
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
   | AssignPrim of string * access * expr
+  | Prim4 of string * access
+
                                                                    
 and access =                         //左值，存储的位置                                            
   | AccVar of string                 (* Variable access        x    *) 
