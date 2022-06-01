@@ -27,7 +27,7 @@ class Machine {
   // These numeric instruction codes must agree with Machine.fs:
 
   final static int 
-    CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28,
+    CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28, RSHIFT = 29, LSHIFT = 30,
     EQ = 6, LT = 7, NOT = 8, 
     DUP = 9, SWAP = 10, 
     LDI = 11, STI = 12, 
@@ -80,6 +80,10 @@ class Machine {
         s[sp-1] = s[sp-1] | s[sp]; sp--; break;
       case XOR:
         s[sp-1] = s[sp-1] ^ s[sp]; sp--; break;
+      case RSHIFT:
+        s[sp-1] = s[sp-1] >> s[sp]; sp--; break;
+      case LSHIFT:
+        s[sp-1] = s[sp-1] << s[sp]; sp--; break;  
       case MOD: 
         s[sp-1] = s[sp-1] % s[sp]; sp--; break;
       case EQ: 
@@ -158,6 +162,8 @@ class Machine {
     case AND:    return "AND";
     case OR:     return "OR";
     case XOR:    return "XOR";
+    case RSHIFT: return "RSHIFT";
+    case LSHIFT: return "LSHIFT";
     case MOD:    return "MOD";
     case EQ:     return "EQ";
     case LT:     return "LT";

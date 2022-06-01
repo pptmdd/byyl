@@ -422,6 +422,8 @@ and eval e locEnv gloEnv store : int * store =
             | "&" -> i1 &&& i2
             | "|" -> i1 ||| i2
             | "^" -> i1 ^^^ i2
+            | ">>" -> i1 >>> i2
+            | "<<" -> i1 <<< i2
             | "==" -> if i1 = i2 then 1 else 0
             | "!=" -> if i1 <> i2 then 1 else 0
             | "<" -> if i1 < i2 then 1 else 0

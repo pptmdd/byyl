@@ -55,6 +55,9 @@
 #define AND 26
 #define OR 27
 #define XOR 28
+#define RSHIFT 29
+#define LSHIFT 30
+
 
 #define STACKSIZE 1000
 
@@ -87,6 +90,12 @@ void printInstruction(int p[], int pc)
     break;
   case XOR:
     printf("XOR");
+    break;
+  case RSHIFT:
+    printf("RSHIFT");
+    break;
+  case LSHIFT:
+    printf("LSHIFT");
     break;
   case MOD:
     printf("MOD");
@@ -240,6 +249,14 @@ int execcode(int p[], int s[], int iargs[], int iargc, int /* boolean */ trace)
       break;
     case XOR:
       s[sp - 1] = s[sp - 1] ^ s[sp];
+      sp--;
+      break;
+    case RSHIFT:
+      s[sp - 1] = s[sp - 1] >> s[sp];
+      sp--;
+      break;
+    case LSHIFT:
+      s[sp - 1] = s[sp - 1] << s[sp];
       sp--;
       break;
     case MOD:
