@@ -230,9 +230,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\何伟煊\\Documents\\GitHub\\byyl\\microc\\interpc.fsproj",
-      "projectName": "interpc",
-      "projectPath": "C:\\Users\\何伟煊\\Documents\\GitHub\\byyl\\microc\\interpc.fsproj",
+      "projectUniqueName": "C:\\Users\\何伟煊\\Documents\\GitHub\\byyl\\microc\\microc.fsproj",
+      "projectName": "microc",
+      "projectPath": "C:\\Users\\何伟煊\\Documents\\GitHub\\byyl\\microc\\microc.fsproj",
       "packagesPath": "C:\\Users\\何伟煊\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\何伟煊\\Documents\\GitHub\\byyl\\microc\\obj\\",
       "projectStyle": "PackageReference",

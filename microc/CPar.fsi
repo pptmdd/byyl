@@ -46,6 +46,9 @@ type token =
   | FOR
   | IN
   | RANGE
+  | SWITCH
+  | CASE
+  | DEFAULT
   | CSTSTRING of (string)
   | NAME of (string)
   | CSTINT of (int)
@@ -96,6 +99,9 @@ type tokenId =
     | TOKEN_FOR
     | TOKEN_IN
     | TOKEN_RANGE
+    | TOKEN_SWITCH
+    | TOKEN_CASE
+    | TOKEN_DEFAULT
     | TOKEN_CSTSTRING
     | TOKEN_NAME
     | TOKEN_CSTINT
@@ -108,6 +114,8 @@ type nonTerminalId =
     | NONTERM_Topdecs
     | NONTERM_Topdec
     | NONTERM_Vardec
+    | NONTERM_CaseList
+    | NONTERM_CaseDec
     | NONTERM_Vardesc
     | NONTERM_Fundec
     | NONTERM_Paramdecs
