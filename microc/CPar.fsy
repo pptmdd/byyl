@@ -19,20 +19,21 @@ let nl = CstI 10 //  \n 的 ASCII 码
 
 %token CHAR ELSE IF INT NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR IN RANGE SWITCH CASE DEFAULT
 %token PLUS MINUS TIMES DIV MOD AND OR XOR QUEST COLON
-%token EQ NE GT LT GE LE MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN
+%token EQ NE GT LT GE LE MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN PREDEC PREINC
 %token NOT SEQOR SEQAND
 %token LPAR RPAR LBRACE RBRACE LBRACK RBRACK SEMI COMMA ASSIGN AMP
 %token EOF 
 
 %right ASSIGN             /* lowest precedence */  // 最下面的优先级最高
 %nonassoc PRINT
+%right MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN
 %left SEQOR
 %left SEQAND
-%left EQ NE AND OR XOR MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN
+%left EQ NE AND XOR OR
 %nonassoc GT LT GE LE
 %left PLUS MINUS
 %left TIMES DIV MOD 
-%nonassoc NOT AMP 
+%nonassoc NOT AMP PREDEC PREINC
 %nonassoc LBRACK          /* highest precedence  */
 
 %start Main            // 语法开始符号
@@ -206,7 +207,10 @@ ExprNotAccess:
   | Access TIMESASSIGN Expr             { AssignPrim("*=", $1, $3) }
   | Access DIVASSIGN Expr               { AssignPrim("/=", $1, $3) }
   | Access MODASSIGN Expr               { AssignPrim("%=", $1, $3) }
-
+  | Access PREINC                       { Prim4("I++", $1)     } 
+  | Access PREDEC                       { Prim4("I--", $1)     } 
+  | PREINC Access                       { Prim4("++I", $2)     } 
+  | PREDEC Access                       { Prim4("--I", $2)     } 
 ;
 
 AtExprNotAccess:

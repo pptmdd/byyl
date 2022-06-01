@@ -26,6 +26,8 @@ type token =
   | TIMESASSIGN
   | MINUSASSIGN
   | PLUSASSIGN
+  | PREDEC
+  | PREINC
   | PLUS
   | MINUS
   | TIMES
@@ -84,6 +86,8 @@ type tokenId =
     | TOKEN_TIMESASSIGN
     | TOKEN_MINUSASSIGN
     | TOKEN_PLUSASSIGN
+    | TOKEN_PREDEC
+    | TOKEN_PREINC
     | TOKEN_PLUS
     | TOKEN_MINUS
     | TOKEN_TIMES

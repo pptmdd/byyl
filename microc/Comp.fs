@@ -348,6 +348,23 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                     | "%=" -> [ MOD;STI ]
                     | _ -> raise (Failure "unknown AssignPrim"))
 
+    | Prim4 (ope, e1) ->
+        (match ope with
+           | "I++" -> 
+               cAccess e1 varEnv funEnv
+                @[ DUP;LDI;SWAP;DUP;LDI;CSTI 1; ADD;STI;INCSP -1 ]
+           | "I--" -> 
+               cAccess e1 varEnv funEnv 
+                @ [ DUP;LDI;SWAP;DUP;LDI;CSTI -1; ADD;STI;INCSP -1 ]
+           | "++I" -> 
+            cAccess e1 varEnv funEnv
+                @[ DUP;LDI;CSTI 1; ADD;STI ]
+           | "--I" -> 
+            cAccess (e1) varEnv funEnv 
+                @ [ DUP;LDI;CSTI -1; ADD;STI ]
+           | _ -> raise (Failure "unknown primitive 4"))
+
+
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()
