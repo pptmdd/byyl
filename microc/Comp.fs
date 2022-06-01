@@ -348,6 +348,11 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
                     | "*=" -> [ MUL;STI ]
                     | "/=" -> [ DIV;STI ]
                     | "%=" -> [ MOD;STI ]
+                    | "&&&=" -> [ AND;STI ]
+                    | "|||=" -> [ OR;STI ]
+                    | "^^^=" -> [ XOR;STI ]
+                    | ">>>=" -> [ RSHIFT;STI ]
+                    | "<<<=" -> [ LSHIFT;STI ]
                     | _ -> raise (Failure "unknown AssignPrim"))
 
     | Prim4 (ope, e1) ->
