@@ -109,58 +109,19 @@ _L1_main_pro_2:
 	push r10
 	;INCSP -1
 	lea rsp, [rsp-8*(-1)]
-	;GVAR 0
-	mov rax ,qword [glovars]
-	sub rax , 0*8
-	push rax
-	;CSTI 1
-	push 1
-	;STI
-	pop r10
-	pop rax
-	mov [rax],r10
-	push r10
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
-	;GOTO L3
-	jmp L3
-	
-L2:
-	;GVAR 0
-	mov rax ,qword [glovars]
-	sub rax , 0*8
-	push rax
-	;LDI
-	pop rax
-	mov rax,[rax]
-	push rax
-	;PRINTI
-	pop rcx
-	push rcx
-	sub rsp, 16
-	call printi
-	add rsp, 16
-	;INCSP -1
-	lea rsp, [rsp-8*(-1)]
-	;GVAR 0
-	mov rax ,qword [glovars]
-	sub rax , 0*8
-	push rax
-	;GVAR 0
-	mov rax ,qword [glovars]
-	sub rax , 0*8
-	push rax
-	;LDI
-	pop rax
-	mov rax,[rax]
-	push rax
-	;CSTI 1
-	push 1
+	;INCSP 1
+	lea rsp, [rsp-8*(1)]
+	;GETBP
+	push rbp
+	;OFFSET 1
+	push -8
 	;ADD
 	pop rax
 	pop r10
 	add rax, r10
 	push rax
+	;CSTC 97
+	push 97
 	;STI
 	pop r10
 	pop rax
@@ -168,57 +129,19 @@ L2:
 	push r10
 	;INCSP -1
 	lea rsp, [rsp-8*(-1)]
-	
-L3:
-	;GVAR 0
-	mov rax ,qword [glovars]
-	sub rax , 0*8
+	;GETBP
+	push rbp
+	;OFFSET 1
+	push -8
+	;ADD
+	pop rax
+	pop r10
+	add rax, r10
 	push rax
 	;LDI
 	pop rax
 	mov rax,[rax]
 	push rax
-	;CSTI 10
-	push 10
-	;SWAP
-	pop rax
-	pop r10
-	push rax
-	push r10
-	;LT
-	pop rax
-	pop r10
-	cmp r10, rax
-	jl .Lasm0
-	push 0
-	jmp .Lasm1
-.Lasm0:
-	push 1
-.Lasm1:
-	;NOT
-	pop rax
-	xor rax, 1
-	push rax
-	;IFNZRO L2
-	pop rax
-	cmp rax,0
-	jne L2
-	;CSTI 0
-	push 0
-	;IFZERO L4
-	pop rax
-	cmp rax,0
-	je L4
-	;CSTI 2
-	push 2
-	;GOTO L5
-	jmp L5
-	
-L4:
-	;CSTI 1
-	push 1
-	
-L5:
 	;PRINTI
 	pop rcx
 	push rcx
@@ -227,8 +150,8 @@ L5:
 	add rsp, 16
 	;INCSP -1
 	lea rsp, [rsp-8*(-1)]
-	;INCSP 0
-	lea rsp, [rsp-8*(0)]
+	;INCSP -1
+	lea rsp, [rsp-8*(-1)]
 	;RET 0
 	pop rbx
 	add rsp, 8*0

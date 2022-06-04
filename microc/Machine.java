@@ -27,7 +27,7 @@ class Machine {
   // These numeric instruction codes must agree with Machine.fs:
 
   final static int 
-    CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28, RSHIFT = 29, LSHIFT = 30,
+    CSTI = 0, ADD = 1, SUB = 2, MUL = 3, DIV = 4, MOD = 5, AND = 26, OR = 27, XOR = 28, RSHIFT = 29, LSHIFT = 30,CSTC=31,
     EQ = 6, LT = 7, NOT = 8, 
     DUP = 9, SWAP = 10, 
     LDI = 11, STI = 12, 
@@ -66,6 +66,8 @@ class Machine {
       switch (p[pc++]) {
       case CSTI:
         s[sp+1] = p[pc++]; sp++; break;
+      case CSTC:
+        s[sp + 1] = new CharType((char) (p[pc++]));sp++;break;
       case ADD: 
         s[sp-1] = s[sp-1] + s[sp]; sp--; break;
       case SUB: 
@@ -155,6 +157,7 @@ class Machine {
   static String insname(int[] p, int pc) {
     switch (p[pc]) {
     case CSTI:   return "CSTI " + p[pc+1]; 
+    case CSTC:   return "CSTC " + (char) (p[pc + 1]);
     case ADD:    return "ADD";
     case SUB:    return "SUB";
     case MUL:    return "MUL";

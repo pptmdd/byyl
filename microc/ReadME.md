@@ -51,7 +51,7 @@ dotnet clean  interpc.fsproj     # 可选
 dotnet build -v n interpc.fsproj # 构建./bin/Debug/net6.0/interpc.exe ，-v n查看详细生成过程~~~~~~~~~~~
 
 # 执行解释器
-./bin/Debug/net6.0/interpc.exe example/ex1.c 8~~~~~~~~~
+./bin/Debug/net5.0/interpc.exe example/ex1.c 8~~~~~~~~~
 dotnet run --project interpc.fsproj example/ex1.c 8
 dotnet run --project interpc.fsproj -g example/ex1.c 8  # 显示token AST 等调试信息
 
@@ -104,7 +104,7 @@ run (fromFile "example\ex11.c") [8];; //解释执行 ex11.
 # 构建 microc.exe 编译器程序 
 dotnet restore  microc.fsproj # 可选
 dotnet clean  microc.fsproj   # 可选
-dotnet build  microc.fsproj   # 构建 ./bin/Debug/net6.0/microc.exe
+dotnet build  microc.fsproj   # 构建 ./bin/Debug/net5.0/microc.exe
 
 dotnet run --project microc.fsproj example/ex1.c    # 执行编译器，编译 ex1.c，并输出  ex1.out 文件
 dotnet run --project microc.fsproj -g example/ex1.c   # -g 查看调试信息
@@ -206,7 +206,7 @@ dotnet build machine.csproj   #构建虚拟机 machine.exe
 gcc -o machine.exe machine.c
 
 # 虚拟机执行指令
-machine.exe ./example/ex9.out 3
+machine.exe ./example/ex1.out 3
 
 # 调试执行指令
 machine.exe -trace ./example/ex9.out 0  # -trace  并查看跟踪信息

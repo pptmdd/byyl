@@ -19,9 +19,7 @@ void main(int n) {
   //   print g;
 
   // print (0 ? 2 : 1);
-  int i;
-  for i in range (2,10,3)
-  {
-      print i;
-  }
+  char ch ;
+  ch = 'a';
+  print(ch);
 }
