@@ -17,8 +17,9 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %token <int> CSTINT CSTBOOL  // <int> 是词元的语义值类型
 %token <string> CSTSTRING NAME
 %token <char> CSTCHAR
+%token <float32> CSTFLOAT
 
-%token INT CHAR ELSE IF NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR IN RANGE SWITCH CASE DEFAULT
+%token INT CHAR FLOAT ELSE IF NULL PRINT PRINTLN RETURN VOID WHILE DO UNTIL FOR IN RANGE SWITCH CASE DEFAULT PRINTC PRINTF
 %token PLUS MINUS TIMES DIV MOD AND OR XOR QUEST COLON RSHIFT LSHIFT
 %token EQ NE GT LT GE LE MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN PREDEC PREINC ANDASSIGN LSHIFTASSIGN RSHIFTASSIGN XORASSIGN ORASSIGN
 %token NOT SEQOR SEQAND
@@ -26,7 +27,7 @@ let nl = CstI 10 //  \n 的 ASCII 码
 %token EOF 
 
 %right ASSIGN             /* lowest precedence */  // 最下面的优先级最高
-%nonassoc PRINT
+%nonassoc PRINT PRINTC PRINTF
 %right MODASSIGN DIVASSIGN TIMESASSIGN MINUSASSIGN PLUSASSIGN ANDASSIGN LSHIFTASSIGN RSHIFTASSIGN XORASSIGN ORASSIGN
 %left SEQOR
 %left SEQAND
@@ -185,6 +186,8 @@ ExprNotAccess:
   | NAME LPAR Exprs RPAR                { Call($1, $3)        }  
   | NOT Expr                            { Prim1("!", $2)      }
   | PRINT Expr                          { Prim1("printi", $2) }
+  | PRINTC Expr                         { Prim1("printc", $2) }
+  | PRINTF Expr                         { Prim1("printf", $2) }
   | PRINTLN                             { Prim1("printc", nl) }
   | Expr PLUS  Expr                     { Prim2("+",  $1, $3) }
   | Expr MINUS Expr                     { Prim2("-",  $1, $3) }
@@ -227,6 +230,7 @@ AtExprNotAccess:
     // AMP Access  , &x
     // (3)   
     Const                               { CstI $1             }
+  | ConstFloat                          { CstF($1)            }
   | ConstChar                           { CstC($1)            }
   | LPAR ExprNotAccess RPAR             { $2                  } 
   | AMP Access                          { Addr $2             } // 取地址
@@ -260,8 +264,12 @@ Const:
 ConstChar:
   CSTCHAR                               { $1       }
 ;
-
+ConstFloat:
+    CSTFLOAT                            { $1       }
+  | MINUS CSTFLOAT                      { - $2     }
+;
 Type:
     INT                                 { TypI     }
   | CHAR                                { TypC     }
+  | FLOAT                               { TypF     }
 ;

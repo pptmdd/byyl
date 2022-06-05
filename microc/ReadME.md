@@ -48,7 +48,7 @@ microcc.fsproj                                          优化编译器项目文
 # 编译解释器 interpc.exe 命令行程序 
 dotnet restore  interpc.fsproj   # 可选
 dotnet clean  interpc.fsproj     # 可选
-dotnet build -v n interpc.fsproj # 构建./bin/Debug/net6.0/interpc.exe ，-v n查看详细生成过程~~~~~~~~~~~
+dotnet build -v n interpc.fsproj # 构建./bin/Debug/net5.0/interpc.exe ，-v n查看详细生成过程~~~~~~~~~~~
 
 # 执行解释器
 ./bin/Debug/net5.0/interpc.exe example/ex1.c 8~~~~~~~~~

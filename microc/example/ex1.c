@@ -19,7 +19,9 @@ void main(int n) {
   //   print g;
 
   // print (0 ? 2 : 1);
-  char ch ;
+  float a ;
+  a = 1.0;
+  char ch;
   ch = 'a';
-  print(ch);
+  printc(ch);
 }

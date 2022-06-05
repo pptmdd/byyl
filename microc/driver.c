@@ -16,6 +16,8 @@ int printc(int c) { printf("%c", c); return c; }
 
 int printi(int i) { printf("%d ", i); return i; }
 
+float printf(float i) { printf("%f ", i); return i; }
+
 void checkargc(int a, int b) { 
   if (a!=b) {
     printf("Wrong argument count: expected %d but got %d\n",a,b); 

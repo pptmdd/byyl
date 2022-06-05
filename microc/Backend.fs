@@ -45,6 +45,7 @@ let new_label =
 let x86header =
     "\nextern printi\n"
     + "extern printc\n"
+    + "extern printf\n"
     + "extern checkargc\n"
     + "global asm_main\n"
     + "default rel\n"
@@ -96,6 +97,9 @@ let rec emitx86 instr =
 
     | CSTI i ->
         $";CSTI {i}\n\t\
+                    push {i}\n\t"
+    | CSTF i ->
+        $";CSTF {i}\n\t\
                     push {i}\n\t"
     | CSTC i ->
         $";CSTC {i}\n\t\
@@ -278,6 +282,14 @@ let rec emitx86 instr =
                     push {arg_loc 0}\n\t\
                     sub rsp, 16\n\t\
                     call printc\n\t\
+                    add rsp, 16\n\t\
+                    "
+    | PRINTF ->
+        $";PRINTF\n\t
+                    pop {arg_loc 0}\n\t\
+                    push {arg_loc 0}\n\t\
+                    sub rsp, 16\n\t\
+                    call printf\n\t\
                     add rsp, 16\n\t\
                     "
     | LDARGS m ->
